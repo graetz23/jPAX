@@ -26,6 +26,8 @@ package de.graetz23.jPAX;
 
 import de.graetz23.jPAX.pax.IPax;
 import de.graetz23.jPAX.pax.Instances;
+import de.graetz23.jPAX.pax.Reader;
+import de.graetz23.jPAX.pax.Writer;
 
 public class Main {
 
@@ -37,9 +39,19 @@ public class Main {
         root.Child().add("child1");
         root.Child().add("child2");
         root.Child().add("child3");
+        root.Child().get("child2").Attrib().add("is", "active");
+        root.Child().get("child3").Attrib().add("is", "inactive");
+        root.Child().get("child1").Child().add("child4");
+        root.Child().get("child1").Child().get("child4").Attrib().add("is", "active");
 
         String xml = root.XML();
         System.out.println(xml);
+
+        Writer.Instance.XML(root, "root.xml");
+
+        IPax loaded = Reader.Instance.parse("./root.xml");
+        String xml_ = loaded.XML();
+        System.out.println(xml_);
 
     } // main
 

@@ -32,6 +32,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class Reader {
@@ -45,13 +47,18 @@ public class Reader {
 
         IPax root = null;
         SAXParserFactory factory = SAXParserFactory.newInstance();
+
         try {
             SAXParser parser = factory.newSAXParser();
             IPaxHandler handler = new IPaxHandler();
             parser.getXMLReader().setProperty(handler.LexicalHandlerProperty(), handler.LexicalHandler());
-            InputStream in = getClass().getResourceAsStream(filename);
-            parser.parse(in, handler);
-            root = handler.getRoot();
+            FileInputStream fileInputStream = new FileInputStream(filename); // open file
+            if (fileInputStream != null) {
+                parser.parse(fileInputStream, handler);
+                root = handler.getRoot();
+            } else {
+                System.out.println("InputStream is null - no file found");
+            } //
         } catch (Exception exception) {
             exception.printStackTrace();
         } // try
