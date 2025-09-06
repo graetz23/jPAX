@@ -1,0 +1,276 @@
+/**
+ * MIT License
+ * <p>
+ * Copyright (c) 2017-2025 jPAX Christian (graetz23@gmail.com)
+ * <p>
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * <p>
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * <p>
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package de.graetz23.jPAX.pax;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class Subset implements ISubset {
+
+    private final LinkedHashMap<String, IPax> _hashMap = new LinkedHashMap<String, IPax>();
+
+    private IPax _ancestor = null;
+
+    public Subset(IPax ancestor) {
+        _ancestor = ancestor;
+    } // constructor
+
+    @Override
+    public IPax Ancestor() {
+        return _ancestor;
+    } // method
+
+    @Override
+    public void Ancestor(IPax ancestor) {
+        _ancestor = ancestor;
+    } // method
+
+    @Override
+    public boolean hasAncestor() {
+        return _ancestor != null;
+    } // method
+
+    @Override
+    public IPax First() {
+        IPax first = null;
+        if (!_hashMap.isEmpty()) {
+            first = get(0);
+        } // if
+        return first;
+    } // method
+
+    @Override
+    public boolean has(String tag) {
+        return _hashMap.containsKey(tag);
+    } // method
+
+    @Override
+    public boolean has(IPax Pax) {
+        return _hashMap.containsValue(Pax);
+    } // method
+
+    @Override
+    public IPax get(int i) {
+        IPax Pax = null;
+        int currentIndx = 0;
+        for (Map.Entry<String, IPax> entry : _hashMap.entrySet()) {
+            if (currentIndx == i) {
+                Pax = entry.getValue();
+                break;
+            } // if
+            currentIndx++;
+        } // loop
+        return Pax;
+    } // method
+
+    @Override
+    public IPax get(String tag) {
+        IPax Pax = null;
+        if (has(tag)) {
+            Pax = _hashMap.get(tag);
+        } // if
+        return Pax;
+    } // method
+
+    @Override
+    public boolean add(String tag) {
+        boolean wasAdded = false;
+        if (!tag.isEmpty()) {
+            if (!has(tag)) {
+                IPax Pax = Instances.Factory().produce(tag);
+                Pax.Parent(Ancestor());
+                _hashMap.put(Pax.Tag(), Pax);
+            } else { // a helping hand to put correctly ..
+                String tag_ = tag + Statics.Separation + Statics.Next();
+                IPax Pax = Instances.Factory().produce(tag);
+                Pax.Parent(Ancestor());
+                _hashMap.put(tag_, Pax);
+            } // if
+            wasAdded = true;
+        } // if
+        return wasAdded;
+    } // method
+
+    @Override
+    public boolean add(String tag, String val) {
+        boolean wasAdded = false;
+        if (!tag.isEmpty()) {
+            if (!has(tag)) {
+                IPax Pax = Instances.Factory().produce(tag, val);
+                Pax.Parent(Ancestor());
+                _hashMap.put(Pax.Tag(), Pax);
+            } else { // a helping hand to put correctly ..
+                String tag_ = tag + Statics.Separation + Statics.Next();
+                IPax Pax = Instances.Factory().produce(tag, val);
+                Pax.Parent(Ancestor());
+                _hashMap.put(tag_, Pax);
+            } // if
+            wasAdded = true;
+        } // if
+        return wasAdded;
+    } // method
+
+    @Override
+    public boolean add(IPax Pax) {
+        boolean wasAdded = false;
+        if (Pax != null) {
+            Pax.Parent(Ancestor());
+            if (!has(Pax.Tag())) {
+                _hashMap.put(Pax.Tag(), Pax);
+            } else { // a helping hand to put correctly ..
+                String tag = Pax.Tag();
+                String tag_ = tag + Statics.Separation + Statics.Next();
+                _hashMap.put(tag_, Pax);
+            } // if
+            wasAdded = true;
+        } // if
+        return wasAdded;
+    } // method
+
+    @Override
+    public boolean set(String tag, String val) {
+        boolean wasSet = false;
+        if (has(tag)) {
+            IPax Pax = get(tag);
+            if (Pax != null) {
+                Pax.Val(val);
+                wasSet = true;
+            } // if
+        } else {
+            add(tag, val);
+            wasSet = true;
+        } // if
+        return wasSet;
+    } // method
+
+    @Override
+    public boolean set(IPax pax) {
+        boolean wasSet = false;
+        if (pax != null) {
+            pax.Parent(Ancestor()); // Set the parent
+            if (_hashMap.containsKey(pax.Tag())) {
+                _hashMap.replace(pax.Tag(), pax); // Replace or add
+            } else {
+                _hashMap.put(pax.Tag(), pax);
+            } // if
+            wasSet = true;
+        } // if
+        return wasSet;
+    } // method
+
+    @Override
+    public boolean del(String key) {
+        boolean wasDeleted = false;
+        if (has(key)) {
+            _hashMap.get(key).Parent(null);
+            _hashMap.remove(key);
+            wasDeleted = true;
+        } // if
+        return wasDeleted;
+    } // method
+
+    @Override
+    public boolean del(IPax Pax) {
+        boolean wasDeleted = false;
+        if (has(Pax)) {
+            String key_memento = null;
+            IPax Pax_memento = null;
+            Set<Map.Entry<String, IPax>> entries = _hashMap.entrySet();
+            for (Map.Entry<String, IPax> entry : entries) {
+                IPax Pax_ = entry.getValue();
+                if (Pax == Pax_) {
+                    key_memento = entry.getKey(); // important to take this key ..
+                    Pax_memento = Pax_;
+                    break;
+                } // if
+            } // loop
+            if (key_memento != null && Pax_memento != null) { // do family business ..
+                Pax_memento.Parent(null);
+                _hashMap.remove(key_memento);
+                wasDeleted = true;
+            } // if
+        } // if
+        return wasDeleted;
+    } // method
+
+    @Override
+    public boolean del() {
+        boolean wasDeleted = false;
+        if (!_hashMap.isEmpty()) { // delete em all ..
+            _hashMap.clear();
+            wasDeleted = true;
+        } // if
+        return wasDeleted;
+    } // method
+
+    @Override
+    public int cnt() {
+        return _hashMap.size();
+    } // method
+
+    @Override
+    public List<IPax> all() {
+        List<IPax> all = null;
+        if (cnt() > 0) {
+            all = new ArrayList<>(_hashMap.values());
+        } // if
+        return all;
+    } // method
+
+    @Override
+    public List<IPax> all(String tag) {
+        List<IPax> filtered = null;
+        if (cnt() > 0) {
+            filtered = new ArrayList<>();
+            List<IPax> all = all(); // use above to ensure sequence .
+            for (IPax child : all) { // in case of extending, use starts with ..
+                if (child.Tag().toLowerCase().startsWith(tag.toLowerCase())) {
+                    filtered.add(child);
+                } // if
+            } // loop
+        } // if
+        return filtered;
+    } // method
+
+    @Override
+    public <T extends IPax> List<T> typed(String tag) {
+        List<T> filtered = null;
+        if (cnt() > 0) {
+            filtered = new ArrayList<>();
+            List<IPax> all = all(); // use above to ensure sequence .
+            for (IPax child : all) { // in case of extending, use starts with ..
+                if (child.Tag().toLowerCase().startsWith(tag.toLowerCase())) {
+                    T typedPax = (T) child;
+                    filtered.add(typedPax);
+                } // if
+            } // loop
+        } // if
+        return filtered;
+    } // method
+
+} // class
