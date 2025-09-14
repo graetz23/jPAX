@@ -29,6 +29,25 @@ IPax child = root.Child().get("child3");
 child.Attrib().add("is", "inactive");
 ```
 
+### Generating XML and writting it
+Any tree node can generate itself. Therefore, one can select the generation.
+
+From code above to be continued.
+```java
+String xml = root.XML();
+System.out.println(xml);
+```
+
+###Parsing XML to Objet Tree Node
+Any XML can be parsed to an object tree node, without support of an XSD.
+
+From code above to be continued.
+```java
+IPax loaded = Reader.Instance.parse("./root.xml");
+String xml_ = loaded.XML();
+System.out.println(xml_);
+```
+
 ## Build
 
 Gradle Wrapper is generated in version 9; try:
