@@ -38,9 +38,11 @@ public class Main {
         IPax root = Instances.Factory().produce("root"); // produce a pax node as named root
         root.Child().add("child1"); // add a child node
         root.Child().add("child2");
-        root.Child().add("child3");
+        IPax child3 = Instances.Factory().produce("child3");
+        root.Child().add(child3);
         root.Child().get("child2").Attrib().add("is", "active"); // get a child by tag and add and attribute
-        root.Child().get("child3").Attrib().add("is", "inactive");
+        IPax child3_ = root.Child().get("child3");
+        child3_.Attrib().add("is", "inactive");
         root.Child().get("child1").Child().add("child4"); // add child node to another by tag
         root.Child().get("child1").Child().get("child4").Attrib().add("is", "active");
 

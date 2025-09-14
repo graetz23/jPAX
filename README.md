@@ -8,6 +8,36 @@ of _many_ with the same name, _by listing and filtering_. Each object can also s
 the same way as child but are used as a list. By any object, the tree can be recursed and generated to any data format.
 Currently, the generation of XML im implemented only.
 
+## HowTo
+The following examples show how to use jPAX.
+
+### Creating a root and adding Children
+Children can be added by string for their _tag name_ or by a factory added as object.
+```java
+IPax root = Instances.Factory().produce("root"); // produce a pax node as named root
+root.Child().add("child1"); // add a child node
+root.Child().add("child2");
+IPax child3 = Instances.Factory().produce("child3");
+root.Child().add(child3);
+```
+
+### Creating Attributes
+Following the code from above, _any attribute_ may be added to _any object_.
+```java
+root.Child().get("child2").Attrib().add("is", "active"); // get a child by tag and add and attribute
+IPax child = root.Child().get("child3");
+child.Attrib().add("is", "inactive");
+```
+
+
+### 
+root.Child().get("child2").Attrib().add("is", "active"); // get a child by tag and add and attribute
+root.Child().get("child3").Attrib().add("is", "inactive");
+root.Child().get("child1").Child().add("child4"); // add child node to another by tag
+root.Child().get("child1").Child().get("child4").Attrib().add("is", "active");
+
+```
+
 ## Build
 
 Gradle Wrapper is generated in version 9; try:
