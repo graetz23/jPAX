@@ -24,18 +24,9 @@ root.Child().add(child3);
 ### Creating Attributes
 Following the code from above, _any attribute_ may be added to _any object_.
 ```java
-root.Child().get("child2").Attrib().add("is", "active"); // get a child by tag and add and attribute
+root.Child().get("child2").Attrib().add("is", "active");
 IPax child = root.Child().get("child3");
 child.Attrib().add("is", "inactive");
-```
-
-
-### 
-root.Child().get("child2").Attrib().add("is", "active"); // get a child by tag and add and attribute
-root.Child().get("child3").Attrib().add("is", "inactive");
-root.Child().get("child1").Child().add("child4"); // add child node to another by tag
-root.Child().get("child1").Child().get("child4").Attrib().add("is", "active");
-
 ```
 
 ## Build
