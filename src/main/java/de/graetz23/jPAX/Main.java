@@ -53,6 +53,8 @@ public class Main {
         String xml_ = loaded.XML(); // generate XMl from loaded
         System.out.println(xml_);
 
+        boolean stopHere = true;
+
     } // main
 
 } // class

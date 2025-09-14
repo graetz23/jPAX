@@ -26,7 +26,11 @@ package de.graetz23.jPAX.pax;
 
 public class Instances {
 
-    private static IFactory _factory = new Factory(); // member
+    private final static IFactory _base = new Factory(); // member
+
+    private static IFactory _factory = _base; // member
+
+    public static void resetFactory() { _factory = _base; } // method
 
     public static IFactory Factory() {
         return _factory;

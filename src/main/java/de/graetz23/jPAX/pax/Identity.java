@@ -24,7 +24,7 @@
 
 package de.graetz23.jPAX.pax;
 
-public class Ident {
+public class Identity {
 
     /// W3C XML HEADER identifier
     public final static String HEADER = "#xml"; // member

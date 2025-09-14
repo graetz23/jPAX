@@ -24,11 +24,7 @@
 
 package de.graetz23.jPAX.pax;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Subset implements ISubset {
 
@@ -235,20 +231,19 @@ public class Subset implements ISubset {
 
     @Override
     public List<IPax> all() {
-        List<IPax> all = null;
+        List<IPax> all = new ArrayList<>();
         if (cnt() > 0) {
-            all = new ArrayList<>(_hashMap.values());
+            all = _hashMap.values().stream().toList();
         } // if
         return all;
     } // method
 
     @Override
     public List<IPax> all(String tag) {
-        List<IPax> filtered = null;
+        List<IPax> filtered = new ArrayList<>();
         if (cnt() > 0) {
-            filtered = new ArrayList<>();
-            List<IPax> all = all(); // use above to ensure sequence .
-            for (IPax child : all) { // in case of extending, use starts with ..
+            List<IPax> all = _hashMap.values().stream().toList();
+            for (IPax child : all) {
                 if (child.Tag().toLowerCase().startsWith(tag.toLowerCase())) {
                     filtered.add(child);
                 } // if
@@ -258,12 +253,24 @@ public class Subset implements ISubset {
     } // method
 
     @Override
-    public <T extends IPax> List<T> typed(String tag) {
-        List<T> filtered = null;
+    public <T extends IPax> List<T> typed() {
+        List<T> filtered = new ArrayList<>();
         if (cnt() > 0) {
-            filtered = new ArrayList<>();
-            List<IPax> all = all(); // use above to ensure sequence .
-            for (IPax child : all) { // in case of extending, use starts with ..
+            List<IPax> all = _hashMap.values().stream().toList();
+            for (IPax child : all) {
+                T typedPax = (T) child;
+                filtered.add(typedPax);
+            } // loop
+        } // if
+        return filtered;
+    } // method
+
+    @Override
+    public <T extends IPax> List<T> typed(String tag) {
+        List<T> filtered = new ArrayList<>();
+        if (cnt() > 0) {
+            List<IPax> all = _hashMap.values().stream().toList();
+            for (IPax child : all) {
                 if (child.Tag().toLowerCase().startsWith(tag.toLowerCase())) {
                     T typedPax = (T) child;
                     filtered.add(typedPax);

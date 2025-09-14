@@ -24,17 +24,14 @@
 
 package de.graetz23.jPAX.pax;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.io.File;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.FileInputStream;
-import java.io.InputStream;
 
 public class Reader {
 
@@ -124,7 +121,7 @@ public class Reader {
             if (_hierarchyLevel != -1) { // check for staring value
                 String message = this.getClass().getSimpleName();
                 message += " - ";
-                message += "XML document is not closed concerning the hierarchy, ended at level: ";
+                message += "XML document is not closed, hierarchy ended at level: ";
                 message += _hierarchyLevel + 1; // add one up
                 throw new SAXException(message);
             } // if
@@ -141,7 +138,7 @@ public class Reader {
                 if (_wasRootFound) {
                     String message = this.getClass().getSimpleName();
                     message += " - ";
-                    message += "XML document is keeping a second XML root node that is not allowed";
+                    message += "XML document is keeping a 2nd XML root node";
                     throw new SAXException(message);
                 } // if
                 _wasRootFound = true; // look for single root
@@ -211,12 +208,10 @@ public class Reader {
             public void comment(char[] ch, int start, int length) throws SAXException {
                 if (_handler._hierarchyLevel > -1) {
                     IPax parent = _handler._parent;
-                    parent.Child().add(Ident.COMMENT, new String(ch, start, length));
+                    parent.Child().add(Identity.COMMENT, new String(ch, start, length));
                 } // if
             } // method
 
         } // class
-
     } // class
-
 } // class

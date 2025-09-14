@@ -45,7 +45,7 @@ public class Writer {
             if (root.hasTag()) {
                 tag = root.Tag();
             } // if
-            wasWritten = XML(root, root.Tag());
+            wasWritten = XML(root, tag);
         } // if
         return wasWritten;
     } // method
@@ -62,7 +62,7 @@ public class Writer {
                 CharsetEncoder encoder = StandardCharsets.UTF_8.newEncoder(); // get sure to write UTF-8
                 OutputStreamWriter file = new OutputStreamWriter(stream, encoder);
                 String xml = root.XML();
-                String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + Statics.LineSeparator;
+                String header = "<?xml version=\"1.1\" encoding=\"UTF-8\"?>" + Statics.LineSeparator;
                 file.write(header);
                 file.write(xml);
                 file.close();

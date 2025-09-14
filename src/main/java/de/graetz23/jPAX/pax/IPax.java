@@ -48,11 +48,11 @@ public interface IPax {
 
     IChildren Child(); // method
 
-    boolean hasChildren(); // method
+    boolean hasChild(); // method
 
     IAttributes Attrib(); // method
 
-    boolean hasAttributes(); // method
+    boolean hasAttrib(); // method
 
     String XML(); // method
 

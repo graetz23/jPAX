@@ -26,4 +26,6 @@ package de.graetz23.jPAX.pax;
 
 public interface IChildren extends ISubset {
 
+    // overload or add methods, if necessary
+
 } // interface

@@ -28,15 +28,26 @@ public class Statics {
 
     public static final String LineSeparator = System.lineSeparator(); // member
     public static final String Separation = " "; // member
-    public static int SizeIndent = 2; // member
-    public static int CurrentIndent = 0; // member
+    private static int _sizeIndent = 2; // member
+    private static int _currentIndent = 0; // member
 
     public static String Indent() {
         StringBuilder indent = new StringBuilder();
-        for (int i = 0; i < CurrentIndent; i++) {
+        for (int i = 0; i < _currentIndent; i++) {
             indent.append(" ");
         } // loop
         return indent.toString();
+    } // method
+
+    public static void incIndent() {
+        _currentIndent += _sizeIndent;
+    } // method
+
+    public static void decindent () {
+        _currentIndent -= _sizeIndent;
+        if(_currentIndent < 0) {
+            _currentIndent = 0;
+        } // if
     } // method
 
     private static long _cnt = 0; // member

@@ -26,6 +26,6 @@ package de.graetz23.jPAX.pax;
 
 public interface IAttributes extends ISubset {
 
-    String XML();
+    String XML(); // method
 
 } // method

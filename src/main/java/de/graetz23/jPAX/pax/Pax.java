@@ -59,7 +59,7 @@ public class Pax implements IPax {
                 Tag(Pax.Tag());
             } // if
 
-            if (Pax.hasAttributes()) {
+            if (Pax.hasAttrib()) {
                 List<IPax> attribs = Pax.Attrib().all();
                 for (IPax attrib : attribs) {
                     IPax attrib_ = Instances.Factory().copy(attrib);
@@ -69,14 +69,16 @@ public class Pax implements IPax {
 
             if (Pax.hasVal()) { // either value ..
                 Val(Pax.Val());
-            }
-            if (Pax.hasChildren()) {
-                List<IPax> childs = Pax.Child().all();
-                for (IPax child : childs) { // here we go recursive ..
+            } // if
+
+            if (Pax.hasChild()) {
+                List<IPax> list = Pax.Child().all();
+                for (IPax child : list) { // go recursive ..
                     IPax child_ = Instances.Factory().copy(child);
                     Child().add(child_);
                 } // loop
             } // if
+
         } // if
     } // constructor
 
@@ -165,7 +167,7 @@ public class Pax implements IPax {
     } // method
 
     @Override
-    public boolean hasChildren() {
+    public boolean hasChild() {
         boolean has = false;
         if (_children != null) {
             if (_children.cnt() > 0) {
@@ -184,7 +186,7 @@ public class Pax implements IPax {
     } // method
 
     @Override
-    public boolean hasAttributes() {
+    public boolean hasAttrib() {
         boolean has = false;
         if (_attributes != null) {
             if (_attributes.cnt() > 0) {
@@ -198,14 +200,14 @@ public class Pax implements IPax {
     public String XML() {
         StringBuilder xml = new StringBuilder(Statics.Indent());
         if (hasTag()) {
-            if (!hasChildren()) {
+            if (!hasChild()) {
                 if (hasVal()) {
-                    if (Tag().startsWith(Ident.COMMENT)) {
+                    if (Tag().startsWith(Identity.COMMENT)) {
                         xml.append("<!--").append(Val()).append("-->").append(Statics.LineSeparator);
-                    } else if (Tag().startsWith(Ident.CDATA)) {
+                    } else if (Tag().startsWith(Identity.CDATA)) {
                         xml.append("<![CDATA[").append(Val()).append("]]>").append(Statics.LineSeparator);
                     } else {
-                        if (hasAttributes()) {
+                        if (hasAttrib()) {
                             xml.append("<")
                                     .append(Tag())
                                     .append(" ")
@@ -229,7 +231,7 @@ public class Pax implements IPax {
                         } // if
                     } // if
                 } else {
-                    if (hasAttributes()) {
+                    if (hasAttrib()) {
                         xml.append("<")
                                 .append(Tag())
                                 .append(" ")
@@ -242,7 +244,7 @@ public class Pax implements IPax {
                     } // if
                 } // if
             } else {
-                if (hasAttributes()) {
+                if (hasAttrib()) {
                     xml.append("<")
                             .append(Tag())
                             .append(" ")
@@ -253,13 +255,12 @@ public class Pax implements IPax {
                 } else {
                     xml.append("<").append(Tag()).append(">").append(Statics.LineSeparator);
                 } // if
-                Statics.CurrentIndent += (int) Statics.SizeIndent;
+                Statics.incIndent();
                 for (IPax child : Child().all()) { // goe recursive ..
                     xml.append(child.XML());
                 } // loop
-                Statics.CurrentIndent -= (int) Statics.SizeIndent;
-                xml.append(Statics.Indent());
-                xml.append("</").append(Tag()).append(">").append(Statics.LineSeparator);
+                Statics.decindent();
+                xml.append(Statics.Indent()).append("</").append(Tag()).append(">").append(Statics.LineSeparator);
             } // if
         } // if
         return xml.toString();

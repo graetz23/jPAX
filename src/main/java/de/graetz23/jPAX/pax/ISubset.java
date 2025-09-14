@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-
 package de.graetz23.jPAX.pax;
 
 import java.util.List;
@@ -70,6 +69,8 @@ interface ISubset {
     List<IPax> all(); // method
 
     List<IPax> all(String tag); // method
+
+    <T extends IPax> List<T> typed(); // method
 
     <T extends IPax> List<T> typed(String tag); // method
 
