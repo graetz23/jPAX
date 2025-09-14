@@ -38,7 +38,7 @@ String xml = root.XML();
 System.out.println(xml);
 ```
 
-###Parsing XML to Objet Tree Node
+### Parsing XML to Objet Tree Node
 Any XML can be parsed to an object tree node, without support of an XSD.
 
 From code above to be continued.
