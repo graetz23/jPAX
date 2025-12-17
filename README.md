@@ -38,7 +38,7 @@ String xml = root.XML();
 System.out.println(xml);
 ```
 
-### Parsing XML to Objet Tree Node
+### Parsing XML to object Tree Node
 Any XML can be parsed to an object tree node, without support of an XSD.
 
 From code above to be continued.
@@ -46,6 +46,14 @@ From code above to be continued.
 IPax loaded = Reader.Instance.parse("./root.xml");
 String xml_ = loaded.XML();
 System.out.println(xml_);
+```
+
+Alternatively, one can parse a _Java InputStream_.
+
+```Java
+
+String xml; // keeping the xml as string, e.g.
+IPax loaded = Reader.Instance.stream(new ByteArrayInputStream(xml.toBytes()));
 ```
 
 ## Build
