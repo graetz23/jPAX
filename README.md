@@ -53,7 +53,7 @@ Alternatively, one can parse a _Java InputStream_.
 ```Java
 
 String xml; // keeping the xml as string, e.g.
-IPax loaded = Reader.Instance.stream(new ByteArrayInputStream(xml.toBytes()));
+IPax loaded = Reader.Instance.stream(new ByteArrayInputStream(xml.getBytes()));
 ```
 
 ## Build
