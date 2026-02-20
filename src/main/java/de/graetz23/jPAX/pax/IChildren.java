@@ -26,6 +26,13 @@ package de.graetz23.jPAX.pax;
 
 public interface IChildren extends ISubset {
 
-    // overload or add methods, if necessary
+  // overload or add methods, if necessary
+
+  /**
+   * Search a node by given path; like XPath, e.g. /child1/child4/wanted
+   * @param path as the path having slashes as hierarchical separators
+   * @return null or the found IPax object
+   */
+  IPax search(String path);
 
 } // interface

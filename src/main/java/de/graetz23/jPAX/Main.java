@@ -55,6 +55,24 @@ public class Main {
         String xml_ = loaded.XML(); // generate XMl from loaded
         System.out.println(xml_);
 
+        // search for some nodes by absolute or relative path; no wildcards yet
+
+        String xpath_absolute1 = "/root/child1/child4/"; // hit
+        IPax found1 = root.Child().search(xpath_absolute1);
+
+        String xpath_absolute2 = "/root/child1/child5/"; // miss
+        IPax found2 = root.Child().search(xpath_absolute2);
+
+        String xpath_relative1 = "./child1/child4/"; // hit
+        IPax found3 = root.Child().search(xpath_relative1);
+
+        String xpath_relative2 = "./child1/child5/"; // miss
+        IPax found4 = root.Child().search(xpath_relative2);
+
+        IPax found5 = found3.Child().search("/root"); // somewhere
+
+        IPax found6 = found3.Child().search("///root///////child1////"); // somewhere
+
         boolean stopHere = true;
 
     } // main
