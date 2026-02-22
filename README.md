@@ -10,7 +10,6 @@ A Java object tree implementation based on the Composite Pattern for reading and
  ▒███         ▒███    ▒███   ███ ▒▒███ 
  █████        █████   █████ █████ █████
 ▒▒▒▒▒        ▒▒▒▒▒   ▒▒▒▒▒ ▒▒▒▒▒ ▒▒▒▒▒ 
-                                       
 ```
 
 ## Introduction
