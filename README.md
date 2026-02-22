@@ -1,6 +1,18 @@
 # jPAX
 A Java object tree implementation based on the Composite Pattern for reading and writing _any_ XML - no need for an XSD.
 
+```
+ ███████████    █████████   █████ █████
+▒▒███▒▒▒▒▒███  ███▒▒▒▒▒███ ▒▒███ ▒▒███ 
+ ▒███    ▒███ ▒███    ▒███  ▒▒███ ███  
+ ▒██████████  ▒███████████   ▒▒█████   
+ ▒███▒▒▒▒▒▒   ▒███▒▒▒▒▒███    ███▒███  
+ ▒███         ▒███    ▒███   ███ ▒▒███ 
+ █████        █████   █████ █████ █████
+▒▒▒▒▒        ▒▒▒▒▒   ▒▒▒▒▒ ▒▒▒▒▒ ▒▒▒▒▒ 
+                                       
+```
+
 ## Introduction
 Each created object can be stored as a node in a tree. There are no special types. Any object can start a fresh tree by
 being root. A root can store _children_. Those can be _added_ or _set_. Any children can be fetched _by tag_ or in case
