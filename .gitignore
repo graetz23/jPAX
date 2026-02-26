@@ -1,5 +1,8 @@
+# project specific
 .idea/
 *.xml
+.log*
+.runtime*
 
 .gradle
 build/

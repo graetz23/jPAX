@@ -24,3 +24,7 @@ tasks.test {
 //        languageVersion.set(JavaLanguageVersion.of(21))
 //    }
 //}
+
+tasks.register("printRuntimeClasspath") {
+    println(sourceSets.main.get().runtimeClasspath.asPath)
+}
