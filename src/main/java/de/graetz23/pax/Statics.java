@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,10 +22,38 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-public interface IAttributes extends ISubset {
+public class Statics {
 
-    String XML(); // method
+    public static final String LineSeparator = System.lineSeparator(); // member
+    public static final String Separation = " "; // member
+    private static int _sizeIndent = 2; // member
+    private static int _currentIndent = 0; // member
 
-} // method
+    public static String Indent() {
+        StringBuilder indent = new StringBuilder();
+        for (int i = 0; i < _currentIndent; i++) {
+            indent.append(" ");
+        } // loop
+        return indent.toString();
+    } // method
+
+    public static void incIndent() {
+        _currentIndent += _sizeIndent;
+    } // method
+
+    public static void decindent () {
+        _currentIndent -= _sizeIndent;
+        if(_currentIndent < 0) {
+            _currentIndent = 0;
+        } // if
+    } // method
+
+    private static long _cnt = 0; // member
+    public static long Next() {
+        _cnt = _cnt + 1;
+        return _cnt;
+    } // method
+
+} // class

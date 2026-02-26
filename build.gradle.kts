@@ -2,8 +2,8 @@ plugins {
     id("java")
 }
 
-group = "org.example"
-version = "1.0"
+group = "de.gratz23.pax"
+version = "1.0.0"
 
 repositories {
     mavenCentral()

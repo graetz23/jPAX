@@ -1,5 +1,6 @@
-# jPAX
-A Java object tree implementation based on the Composite Pattern for reading and writing _any_ XML - no need for an XSD.
+# PAX
+A Java object tree implementation based on the _Composite Pattern_ combined with a _tolerant XML reader_ for reading
+and writing any Extensible Markup Language (XML) structure - no need for an XML Schema Definition XSD.
 
 ```
  ███████████    █████████   █████ █████

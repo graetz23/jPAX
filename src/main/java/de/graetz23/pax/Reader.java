@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

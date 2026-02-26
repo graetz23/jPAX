@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,17 +22,14 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-public interface IChildren extends ISubset {
+public interface IFactory {
 
-  // overload or add methods, if necessary
+    IPax produce(String tag); // method
 
-  /**
-   * Search a node by given path; like XPath, e.g. /child1/child4/wanted
-   * @param path as the path having slashes as hierarchical separators
-   * @return null or the found IPax object
-   */
-  IPax search(String path);
+    IPax produce(String tag, String val); // method
+
+    IPax copy(IPax Pax); // method
 
 } // interface

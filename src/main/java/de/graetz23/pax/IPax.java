@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,38 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-public class Instances {
+public interface IPax {
 
-    private final static IFactory _base = new Factory(); // member
+    String Tag(); // method
 
-    private static IFactory _factory = _base; // member
+    void Tag(String tag); // method
 
-    public static void resetFactory() { _factory = _base; } // method
+    boolean hasTag(); // method
 
-    public static IFactory Factory() {
-        return _factory;
-    } // method
+    String Val(); // method
 
-    public static void Factory(IFactory factory) {
-        _factory = factory;
-    } // method
+    void Val(String val); // method
 
-} // class
+    boolean hasVal(); // method
+
+    IPax Parent(); // method
+
+    void Parent(IPax parent); // method
+
+    boolean hasParent(); // method
+
+    String Path(); // method
+
+    IChildren Child(); // method
+
+    boolean hasChild(); // method
+
+    IAttributes Attrib(); // method
+
+    boolean hasAttrib(); // method
+
+    String XML(); // method
+
+} // interface

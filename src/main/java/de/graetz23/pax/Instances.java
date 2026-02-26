@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jAST Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,20 +22,22 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-public class Factory implements IFactory {
+public class Instances {
 
-    public IPax produce(String tag) {
-        return new Pax(tag);
+    private final static IFactory _base = new Factory(); // member
+
+    private static IFactory _factory = _base; // member
+
+    public static void resetFactory() { _factory = _base; } // method
+
+    public static IFactory Factory() {
+        return _factory;
     } // method
 
-    public IPax produce(String tag, String val) {
-        return new Pax(tag, val);
-    } // method
-
-    public IPax copy(IPax Pax) {
-        return new Pax(Pax);
+    public static void Factory(IFactory factory) {
+        _factory = factory;
     } // method
 
 } // class

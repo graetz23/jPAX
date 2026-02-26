@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,56 +22,17 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-import java.util.List;
+public interface IChildren extends ISubset {
 
-/**
- * Class is part of the IPax interfacing, realizing the list operations for the attributes and
- * children stored at some IPax instance.
- */
-interface ISubset {
+  // overload or add methods, if necessary
 
-    IPax Ancestor();
-
-    void Ancestor(IPax ancestor);
-
-    boolean hasAncestor();
-
-    IPax First(); // method
-
-    boolean has(String tag); // method
-
-    boolean has(IPax Pax); // method
-
-    IPax get(int i); // method
-
-    IPax get(String tag); // method
-
-    boolean add(String tag); // method
-
-    boolean add(String tag, String val); // method
-
-    boolean add(IPax Pax); // method
-
-    boolean set(String tag, String val); // method
-
-    boolean set(IPax Pax);
-
-    boolean del(String key); // method
-
-    boolean del(IPax Pax); // method
-
-    boolean del(); // method
-
-    int cnt(); // method
-
-    List<IPax> all(); // method
-
-    List<IPax> all(String tag); // method
-
-    <T extends IPax> List<T> typed(); // method
-
-    <T extends IPax> List<T> typed(String tag); // method
+  /**
+   * Search a node by given path; like XPath, e.g. /child1/child4/wanted
+   * @param path as the path having slashes as hierarchical separators
+   * @return null or the found IPax object
+   */
+  IPax search(String path);
 
 } // interface

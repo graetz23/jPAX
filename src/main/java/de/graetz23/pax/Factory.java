@@ -1,7 +1,7 @@
 /**
  * MIT License
  * <p>
- * Copyright (c) 2017-2026 jPAX Christian (graetz23@gmail.com)
+ * Copyright (c) 2017-2026 Christian (graetz23@gmail.com)
  * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,20 @@
  * SOFTWARE.
  */
 
-package de.graetz23.jPAX.pax;
+package de.graetz23.pax;
 
-public interface IFactory {
+public class Factory implements IFactory {
 
-    IPax produce(String tag); // method
+    public IPax produce(String tag) {
+        return new Pax(tag);
+    } // method
 
-    IPax produce(String tag, String val); // method
+    public IPax produce(String tag, String val) {
+        return new Pax(tag, val);
+    } // method
 
-    IPax copy(IPax Pax); // method
+    public IPax copy(IPax Pax) {
+        return new Pax(Pax);
+    } // method
 
-} // interface
+} // class

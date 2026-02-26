@@ -1,1 +1,1 @@
-rootProject.name = "jPAX"
+rootProject.name = "pax"
