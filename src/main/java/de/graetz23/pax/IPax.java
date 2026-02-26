@@ -56,4 +56,6 @@ public interface IPax {
 
     String XML(); // method
 
+    String XML_lined(); // method
+
 } // interface

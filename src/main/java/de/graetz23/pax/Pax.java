@@ -240,6 +240,50 @@ public class Pax implements IPax {
     return xml.toString();
   } // method
 
+  @Override
+  public String XML_lined() {
+    StringBuilder xml = new StringBuilder(Statics.Indent());
+    if (hasTag()) {
+      if (!hasChild()) {
+        if (hasVal()) {
+          if (Tag().startsWith(Identity.COMMENT)) {
+            xml.append("<!--").append(Val()).append("-->");
+          } else if (Tag().startsWith(Identity.CDATA)) {
+            xml.append("<![CDATA[").append(Val()).append("]]>");
+          } else {
+            if (hasAttrib()) {
+              xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append(">").append(Val()).append("</").append(Tag()).append(">");
+              // xml += "<" + Tag() + ">" + Val() + "</" + Tag() + ">" +Statics.LineSeparator;
+            } else {
+              xml.append("<").append(Tag()).append(">").append(Val()).append("</").append(Tag()).append(">");
+            } // if
+          } // if
+        } else {
+          if (hasAttrib()) {
+            xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append("/>");
+            // xml += "<" + Tag()  + "/>" + Statics.LineSeparator;
+          } else {
+            xml.append("<").append(Tag()).append(" />");
+          } // if
+        } // if
+      } else {
+        if (hasAttrib()) {
+          xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append(">");
+          // xml += "<" + Tag() + ">" + Statics.LineSeparator;
+        } else {
+          xml.append("<").append(Tag()).append(">");
+        } // if
+        Statics.incIndent();
+        for (IPax child : Child().all()) { // goe recursive ..
+          xml.append(child.XML());
+        } // loop
+        Statics.decindent();
+        xml.append(Statics.Indent()).append("</").append(Tag()).append(">");
+      } // if
+    } // if
+    return xml.toString();
+  } // method
+
   protected final class Children extends Subset implements IChildren {
 
     public Children(IPax ancestor) {
