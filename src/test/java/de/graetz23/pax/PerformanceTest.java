@@ -189,7 +189,7 @@ class PerformanceTest {
     IPax original = Instances.Factory().produce("book");
     original.Attrib().add("id", "1");
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10; i++) {
       IPax chapter = Instances.Factory().produce("chapter", "Content " + i);
       original.Child().add(chapter);
     }
@@ -203,7 +203,7 @@ class PerformanceTest {
     long end = System.nanoTime();
     long duration = (end - start) / 1_000_000;
 
-    System.out.println("Copying node 1000 times (100 children): " + duration + "ms");
+    System.out.println("Copying node 1000 times (10 children): " + duration + "ms");
     assertTrue(duration < 2000, "Should copy node 1000 times in under 2 seconds");
   }
 

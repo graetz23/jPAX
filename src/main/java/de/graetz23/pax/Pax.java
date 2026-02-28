@@ -8,7 +8,10 @@
 
 package de.graetz23.pax;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Pax implements IPax {
 
@@ -179,91 +182,17 @@ public class Pax implements IPax {
 
   @Override
   public String XML() {
-    StringBuilder xml = new StringBuilder(Statics.Indent());
-    if (hasTag()) {
-      if (!hasChild()) {
-        if (hasVal()) {
-          if (Tag().startsWith(Identity.COMMENT)) {
-            xml.append("<!--").append(Val()).append("-->").append(Statics.LineSeparator);
-          } else if (Tag().startsWith(Identity.CDATA)) {
-            xml.append("<![CDATA[").append(Val()).append("]]>").append(Statics.LineSeparator);
-          } else {
-            if (hasAttrib()) {
-              xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append(">").append(Val()).append("</").append(Tag()).append(">").append(Statics.LineSeparator);
-              // xml += "<" + Tag() + ">" + Val() + "</" + Tag() + ">" +Statics.LineSeparator;
-            } else {
-              xml.append("<").append(Tag()).append(">").append(Val()).append("</").append(Tag()).append(">").append(Statics.LineSeparator);
-            } // if
-          } // if
-        } else {
-          if (hasAttrib()) {
-            xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append("/>").append(Statics.LineSeparator);
-            // xml += "<" + Tag()  + "/>" + Statics.LineSeparator;
-          } else {
-            xml.append("<").append(Tag()).append(" />").append(Statics.LineSeparator);
-          } // if
-        } // if
-      } else {
-        if (hasAttrib()) {
-          xml.append("<").append(Tag()).append(" ").append(Attrib().XML()).append(">").append(Statics.LineSeparator);
-          // xml += "<" + Tag() + ">" + Statics.LineSeparator;
-        } else {
-          xml.append("<").append(Tag()).append(">").append(Statics.LineSeparator);
-        } // if
-        Statics.incIndent();
-        for (IPax child : Child().all()) { // goe recursive ..
-          xml.append(child.XML());
-        } // loop
-        Statics.decindent();
-        xml.append(Statics.Indent()).append("</").append(Tag()).append(">").append(Statics.LineSeparator);
-      } // if
-    } // if
-    return xml.toString();
+    return XmlGenerator.generate(this);
   } // method
 
   @Override
   public String XML_lined() {
-    // StringBuilder xml = new StringBuilder(Statics.Indent());
-    StringJoiner xml = new StringJoiner("");
-    if (hasTag()) {
-      if (!hasChild()) {
-        if (hasVal()) {
-          if (Tag().startsWith(Identity.COMMENT)) {
-            xml.add("<!--").add(Val()).add("-->");
-          } else if (Tag().startsWith(Identity.CDATA)) {
-            xml.add("<![CDATA[").add(Val()).add("]]>");
-          } else {
-            if (hasAttrib()) {
-              xml.add("<").add(Tag()).add(" ").add(Attrib().XML()).add(">").add(Val()).add("</").add(Tag()).add(">");
-              // xml += "<" + Tag() + ">" + Val() + "</" + Tag() + ">" +Statics.LineSeparator;
-            } else {
-              xml.add("<").add(Tag()).add(">").add(Val()).add("</").add(Tag()).add(">");
-            } // if
-          } // if
-        } else {
-          if (hasAttrib()) {
-            xml.add("<").add(Tag()).add(" ").add(Attrib().XML()).add("/>");
-            // xml += "<" + Tag()  + "/>" + Statics.LineSeparator;
-          } else {
-            xml.add("<").add(Tag()).add(" />");
-          } // if
-        } // if
-      } else {
-        if (hasAttrib()) {
-          xml.add("<").add(Tag()).add(" ").add(Attrib().XML()).add(">");
-          // xml += "<" + Tag() + ">" + Statics.LineSeparator;
-        } else {
-          xml.add("<").add(Tag()).add(">");
-        } // if
-        Statics.incIndent();
-        for (IPax child : Child().all()) { // goe recursive ..
-          xml.add(child.XML_lined());
-        } // loop
-        Statics.decindent();
-        xml.add("</").add(Tag()).add(">");
-      } // if
-    } // if
-    return xml.toString();
+    return XmlGenerator.generateLined(this);
+  } // method
+
+  @Override
+  public String JSON() {
+    return JsonGenerator.generate(this);
   } // method
 
   protected final class Children extends Subset implements IChildren {
@@ -304,7 +233,7 @@ public class Pax implements IPax {
 
         if (current != null) {
 
-          while(path.contains("//")) {
+          while (path.contains("//")) {
             path = path.replaceAll("//", "/");
           } // loop
 
@@ -333,7 +262,7 @@ public class Pax implements IPax {
               } // if
 
             } else {
-              if(current.Tag().equals(tag)) {
+              if (current.Tag().equals(tag)) {
                 wasFound = true;
               } else {
                 wasFound = false;

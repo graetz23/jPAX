@@ -10,36 +10,38 @@ package de.graetz23.pax;
 
 public interface IPax {
 
-    String Tag(); // method
+  String Tag(); // method
 
-    void Tag(String tag); // method
+  void Tag(String tag); // method
 
-    boolean hasTag(); // method
+  boolean hasTag(); // method
 
-    String Val(); // method
+  String Val(); // method
 
-    void Val(String val); // method
+  void Val(String val); // method
 
-    boolean hasVal(); // method
+  boolean hasVal(); // method
 
-    IPax Parent(); // method
+  IPax Parent(); // method
 
-    void Parent(IPax parent); // method
+  void Parent(IPax parent); // method
 
-    boolean hasParent(); // method
+  boolean hasParent(); // method
 
-    String Path(); // method
+  String Path(); // method
 
-    IChildren Child(); // method
+  IChildren Child(); // method
 
-    boolean hasChild(); // method
+  boolean hasChild(); // method
 
-    IAttributes Attrib(); // method
+  IAttributes Attrib(); // method
 
-    boolean hasAttrib(); // method
+  boolean hasAttrib(); // method
 
-    String XML(); // method
+  String XML(); // method
 
-    String XML_lined(); // method
+  String XML_lined(); // method
+
+  String JSON(); // method
 
 } // interface
